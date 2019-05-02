@@ -2,11 +2,10 @@
  * Dependencies
  */
 
-var Waterline = require('waterline');
+var Waterline = require('waternile');
 
 module.exports = function() {
   return Waterline.Collection.extend({
-
     identity: 'autoInc',
     tableName: 'autoIncTable',
     datastore: 'autoIncConn',
@@ -16,29 +15,28 @@ module.exports = function() {
       name: {
         type: 'string',
         autoMigrations: {
-          columnType: 'varchar'
-        }
+          columnType: 'varchar',
+        },
       },
       normalField: {
         type: 'number',
         autoMigrations: {
-          columnType: '_number'
-        }
+          columnType: '_number',
+        },
       },
       type: {
         type: 'string',
         autoMigrations: {
-          columnType: 'varchar'
-        }
+          columnType: 'varchar',
+        },
       },
       id: {
         type: 'number',
         autoMigrations: {
           autoIncrement: true,
-          columnType: '_numberkey'
-        }
-      }
-    }
-
+          columnType: '_numberkey',
+        },
+      },
+    },
   });
 };

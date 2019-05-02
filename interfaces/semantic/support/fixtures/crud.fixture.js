@@ -11,70 +11,82 @@ module.exports = {
   attributes: {
     // Primary Key
     id: {
-      type: Adapter.identity === 'sails-mongo' ? 'string' : 'number',
+      type:
+        Adapter.identity === 'sails-mongo' ||
+        Adapter.identity === 'sails-orientjs'
+          ? 'string'
+          : 'number',
       columnName: '_id',
       autoMigrations: {
-        columnType: Adapter.identity === 'sails-mongo' ? '_stringkey' : '_numberkey',
-        autoIncrement: Adapter.identity === 'sails-mongo' ? false : true,
-        unique: true,//<< FUTURE: Remove this (unnecessary since this is the PK attribute)
-      }
+        columnType:
+          Adapter.identity === 'sails-mongo' ||
+          Adapter.identity === 'sails-orientjs'
+            ? '_stringkey'
+            : '_numberkey',
+        autoIncrement:
+          Adapter.identity === 'sails-mongo' ||
+          Adapter.identity === 'sails-orientjs'
+            ? false
+            : true,
+        unique: true, //<< FUTURE: Remove this (unnecessary since this is the PK attribute)
+      },
     },
 
     first_name: {
       type: 'string',
       autoMigrations: {
-        columnType: 'varchar'
-      }
+        columnType: 'varchar',
+      },
     },
 
     last_name: {
       type: 'string',
       autoMigrations: {
-        columnType: 'varchar'
-      }
+        columnType: 'varchar',
+      },
     },
 
     type: {
       type: 'string',
       autoMigrations: {
-        columnType: 'varchar'
-      }
+        columnType: 'varchar',
+      },
     },
 
     age: {
       type: 'number',
       allowNull: true,
       autoMigrations: {
-        columnType: 'integer'
-      }
+        columnType: 'integer',
+      },
     },
 
     obj: {
       type: 'json',
       autoMigrations: {
-        columnType: 'json'
-      }
+        columnType: 'json',
+      },
     },
 
     status: {
       type: 'boolean',
       autoMigrations: {
-        columnType: 'boolean'
-      }
+        columnType: 'boolean',
+      },
     },
 
     avatar: {
       type: 'ref',
       autoMigrations: {
-        columnType: 'text'
-      }
+        columnType: 'text',
+      },
     },
 
     sort: {
       type: 'json',
       autoMigrations: {
-        columnType: 'json'
-      }
+        columnType: 'json',
+      },
     },
 
     // Timestamps
@@ -83,16 +95,16 @@ module.exports = {
       type: 'number',
       autoUpdatedAt: true,
       autoMigrations: {
-        columnType: 'bigint'
-      }
+        columnType: 'bigint',
+      },
     },
 
     createdAt: {
       type: 'number',
       autoCreatedAt: true,
       autoMigrations: {
-        columnType: 'bigint'
-      }
-    }
-  }
+        columnType: 'bigint',
+      },
+    },
+  },
 };

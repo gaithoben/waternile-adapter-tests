@@ -5,7 +5,7 @@
 var assert = require('assert');
 var _ = require('@sailshq/lodash');
 var async = require('async');
-var Waterline = require('waterline');
+var Waterline = require('waternile');
 var waterlineUtils = require('waterline-utils');
 
 // Require Fixtures

@@ -1,7 +1,6 @@
-var Waterline = require('waterline');
+var Waterline = require('waternile');
 
 module.exports = Waterline.Collection.extend({
-
   identity: 'compositeUnique',
   tableName: 'compositeUniqueTable',
   connection: 'compositeUniqueConnection',
@@ -12,18 +11,16 @@ module.exports = Waterline.Collection.extend({
       type: 'string',
       unique: {
         unique: false,
-        composite: [ 'uniqueTwo' ]
-      }
+        composite: ['uniqueTwo'],
+      },
     },
 
     uniqueTwo: {
       type: 'string',
       unique: {
         unique: false,
-        composite: [ 'uniqueOne' ]
-      }
-    }
-  }
-
+        composite: ['uniqueOne'],
+      },
+    },
+  },
 });
-

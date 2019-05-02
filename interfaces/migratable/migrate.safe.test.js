@@ -4,7 +4,7 @@
 
 var assert = require('assert');
 var _ = require('@sailshq/lodash');
-var Waterline = require('waterline');
+var Waterline = require('waternile');
 var waterlineUtils = require('waterline-utils');
 
 describe('Migratable Interface', function() {

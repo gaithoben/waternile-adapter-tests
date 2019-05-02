@@ -5,7 +5,7 @@
 var assert = require('assert');
 var _ = require('@sailshq/lodash');
 var async = require('async');
-var Waterline = require('waterline');
+var Waterline = require('waternile');
 var waterlineUtils = require('waterline-utils');
 
 // Require Fixtures
@@ -17,8 +17,10 @@ var fixtures = {
   PaymentHasManyFixture: require('./fixtures/hasMany.child.fixture'),
   CustomerHasManyFixture: require('./fixtures/hasMany.parent.fixture'),
   ApartmentHasManyFixture: require('./fixtures/hasMany.customPK.fixture'),
-  PaymentManyFixture: require('./fixtures/multipleAssociations.fixture').payment,
-  CustomerManyFixture: require('./fixtures/multipleAssociations.fixture').customer,
+  PaymentManyFixture: require('./fixtures/multipleAssociations.fixture')
+    .payment,
+  CustomerManyFixture: require('./fixtures/multipleAssociations.fixture')
+    .customer,
   StadiumFixture: require('./fixtures/hasManyThrough.stadium.fixture'),
   TeamFixture: require('./fixtures/hasManyThrough.team.fixture'),
   VenueFixture: require('./fixtures/hasManyThrough.venue.fixture'),
@@ -29,13 +31,11 @@ var fixtures = {
   TaxiCustomFixture: require('./fixtures/manyToMany.taxi.customPK.fixture'),
   DriverCustomFixture: require('./fixtures/manyToMany.driver.customPK.fixture'),
   UserOneFixture: require('./fixtures/oneToOne.fixture').user_resource,
-  ProfileOneFixture: require('./fixtures/oneToOne.fixture').profile
+  ProfileOneFixture: require('./fixtures/oneToOne.fixture').profile,
 };
-
 
 var waterline;
 var ORM;
-
 
 // Model defaults
 var defaults = {
@@ -50,14 +50,14 @@ var defaults = {
       type: Adapter.identity === 'sails-mongo' ? 'string' : 'number',
       columnName: '_id',
       autoMigrations: {
-        columnType: Adapter.identity === 'sails-mongo' ? '_stringkey' : '_numberkey',
+        columnType:
+          Adapter.identity === 'sails-mongo' ? '_stringkey' : '_numberkey',
         autoIncrement: Adapter.identity === 'sails-mongo' ? false : true,
-        unique: true
-      }
-    }
-  }
+        unique: true,
+      },
+    },
+  },
 };
-
 
 //  ╔═╗╦  ╔═╗╔╗ ╔═╗╦    ┌┐ ┌─┐┌─┐┌─┐┬─┐┌─┐
 //  ║ ╦║  ║ ║╠╩╗╠═╣║    ├┴┐├┤ ├┤ │ │├┬┘├┤
@@ -71,34 +71,40 @@ before(function(done) {
   });
 
   var datastores = {
-    associations: _.clone(Connections.test)
+    associations: _.clone(Connections.test),
   };
 
-  waterline.initialize({ adapters: { wl_tests: Adapter }, datastores: datastores, defaults: defaults }, function(err, orm) {
-    if (err) {
-      return done(err);
-    }
-
-    // Save a reference to the ORM
-    ORM = orm;
-
-    // Run migrations
-    waterlineUtils.autoMigrations('alter', orm, function(err) {
+  waterline.initialize(
+    {
+      adapters: { wl_tests: Adapter },
+      datastores: datastores,
+      defaults: defaults,
+    },
+    function(err, orm) {
       if (err) {
         return done(err);
       }
 
-      // Globalize collections for normalization
-      _.each(ORM.collections, function(collection, identity) {
-        var globalName = identity.charAt(0).toUpperCase() + identity.slice(1);
-        global.Associations[globalName] = collection;
+      // Save a reference to the ORM
+      ORM = orm;
+
+      // Run migrations
+      waterlineUtils.autoMigrations('alter', orm, function(err) {
+        if (err) {
+          return done(err);
+        }
+
+        // Globalize collections for normalization
+        _.each(ORM.collections, function(collection, identity) {
+          var globalName = identity.charAt(0).toUpperCase() + identity.slice(1);
+          global.Associations[globalName] = collection;
+        });
+
+        return done();
       });
-
-      return done();
-    });
-  });
+    }
+  );
 });
-
 
 //  ╔═╗╦  ╔═╗╔╗ ╔═╗╦    ┌─┐┌─┐┌┬┐┌─┐┬─┐
 //  ║ ╦║  ║ ║╠╩╗╠═╣║    ├─┤├┤  │ ├┤ ├┬┘

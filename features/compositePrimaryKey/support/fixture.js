@@ -1,7 +1,6 @@
-var Waterline = require('waterline');
+var Waterline = require('waternile');
 
 module.exports = Waterline.Collection.extend({
-
   identity: 'compositePrimaryKey',
   tableName: 'compositePrimaryKeyTable',
   connection: 'compositePrimaryKeyConnection',
@@ -11,14 +10,12 @@ module.exports = Waterline.Collection.extend({
     name: 'string',
     pkOne: {
       type: 'number',
-      primaryKey: true
+      primaryKey: true,
     },
 
     pkTwo: {
       type: 'string',
-      primaryKey: true
-    }
-  }
-
+      primaryKey: true,
+    },
+  },
 });
-

@@ -1,8 +1,8 @@
 var assert = require('assert');
 var _ = require('lodash');
 
-describe('spatial feature', function () {
-  var Waterline = require('waterline');
+describe('spatial feature', function() {
+  var Waterline = require('waternile');
   var defaults = { migrate: 'alter' };
   var waterline;
 
@@ -10,33 +10,31 @@ describe('spatial feature', function () {
   var Fixtures = require('../support/fixtures.js');
   var Model;
 
-  describe('geojson', function () {
-
-    it('shoud create geometries', function (done) {
+  describe('geojson', function() {
+    it('shoud create geometries', function(done) {
       Model.create({
-          name: 'pointA',
-          prop1: 'foo',
-          marker: Fixtures.point
-        })
-        .then(function (model) {
-          assert(_.isObject(model.marker));
-          assert.equal(model.marker.type, 'Point');
-          assert(model.id);
+        name: 'pointA',
+        prop1: 'foo',
+        marker: Fixtures.point,
+      }).then(function(model) {
+        assert(_.isObject(model.marker));
+        assert.equal(model.marker.type, 'Point');
+        assert(model.id);
 
-          done();
-        })
-    })
-
-    it('should return geojson features if queried normally', function (done) {
-      Model.find().then(function (models) {
-        assert(models);
-        assert(models.length)
         done();
       });
     });
-    it.skip('should return a FeatureCollection if queried with .asGeojson()', function (done) {
+
+    it('should return geojson features if queried normally', function(done) {
+      Model.find().then(function(models) {
+        assert(models);
+        assert(models.length);
+        done();
+      });
+    });
+    it.skip('should return a FeatureCollection if queried with .asGeojson()', function(done) {
       done();
-    })
+    });
   });
 
   before(function(done) {
@@ -44,27 +42,33 @@ describe('spatial feature', function () {
     waterline.registerModel(Models);
 
     var connections = { geoConnection: _.clone(Connections.test) };
-    Adapter.teardown('geoConnection', function adapterTeardown(){
-      waterline.initialize({ adapters: { wl_tests: Adapter }, connections: connections, defaults: defaults }, function(err, ontology) {
-        if(err) return done(err);
-        Model = ontology.collections['geomodel'];
-        done();
-      });
+    Adapter.teardown('geoConnection', function adapterTeardown() {
+      waterline.initialize(
+        {
+          adapters: { wl_tests: Adapter },
+          connections: connections,
+          defaults: defaults,
+        },
+        function(err, ontology) {
+          if (err) return done(err);
+          Model = ontology.collections['geomodel'];
+          done();
+        }
+      );
     });
   });
   after(function(done) {
-    done()
-    if(!Adapter.hasOwnProperty('drop')) {
+    done();
+    if (!Adapter.hasOwnProperty('drop')) {
       waterline.teardown(done);
-      done()
+      done();
     } else {
       Model.drop(function(err1) {
-        done()
+        done();
         waterline.teardown(function(err2) {
           return done(err1 || err2);
         });
       });
     }
   });
-
-});;
+});

@@ -2,7 +2,7 @@
  * Dependencies
  */
 
-var Waterline = require('waterline');
+var Waterline = require('waternile');
 
 module.exports = Waterline.Collection.extend({
 

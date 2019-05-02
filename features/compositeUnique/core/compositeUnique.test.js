@@ -1,14 +1,13 @@
 var assert = require('assert');
 var _ = require('@sailshq/lodash');
 
-describe.skip('compositeUnique feature', function () {
-  var Waterline = require('waterline');
+describe.skip('compositeUnique feature', function() {
+  var Waterline = require('waternile');
   var defaults = { migrate: 'alter' };
   var waterline;
 
   var Fixture = require('./../support/fixture.js');
   var Model;
-
 
   before(function(done) {
     waterline = new Waterline();
@@ -16,16 +15,23 @@ describe.skip('compositeUnique feature', function () {
 
     var connections = { compositeUniqueConnection: _.clone(Connections.test) };
 
-    Adapter.teardown('compositeUniqueConnection', function adapterTeardown(){
-      waterline.initialize({ adapters: { wl_tests: Adapter }, connections: connections, defaults: defaults }, function(err, ontology) {
-        if(err) return done(err);
-        Model = ontology.collections['compositeunique'];
-        done();
-      });
+    Adapter.teardown('compositeUniqueConnection', function adapterTeardown() {
+      waterline.initialize(
+        {
+          adapters: { wl_tests: Adapter },
+          connections: connections,
+          defaults: defaults,
+        },
+        function(err, ontology) {
+          if (err) return done(err);
+          Model = ontology.collections['compositeunique'];
+          done();
+        }
+      );
     });
   });
   after(function(done) {
-    if(!Adapter.hasOwnProperty('drop')) {
+    if (!Adapter.hasOwnProperty('drop')) {
       waterline.teardown(done);
     } else {
       Model.drop(function(err1) {
@@ -36,32 +42,32 @@ describe.skip('compositeUnique feature', function () {
     }
   });
 
-  it('should insert unique values', function (done) {
+  it('should insert unique values', function(done) {
     var records = [
       { name: '1st', uniqueOne: 'foo', uniqueTwo: 'bar' },
       { name: '2nd', uniqueOne: 'foo', uniqueTwo: 'baz' },
       { name: '3rd', uniqueOne: 'bar', uniqueTwo: 'bar' },
-      { name: '4th', uniqueOne: 'bar', uniqueTwo: 'baz' }
+      { name: '4th', uniqueOne: 'bar', uniqueTwo: 'baz' },
     ];
 
     Model.create(records)
-      .then(function (records) {
+      .then(function(records) {
         assert(records.length, 4);
         done();
       })
-      .catch(done)
-  })
-  it('should enforce composite uniqueness', function (done) {
-    var records = [
-      { name: '5th', uniqueOne: 'foo', uniqueTwo: 'bar' }
-    ];
+      .catch(done);
+  });
+  it('should enforce composite uniqueness', function(done) {
+    var records = [{ name: '5th', uniqueOne: 'foo', uniqueTwo: 'bar' }];
     Model.create(records)
-      .then(function (records) {
-        done(new Error('should not have inserted unique records, but did anyway'));
+      .then(function(records) {
+        done(
+          new Error('should not have inserted unique records, but did anyway')
+        );
       })
-      .catch(function (err) {
-        assert(err)
+      .catch(function(err) {
+        assert(err);
         done();
-      })
-  })
-})
+      });
+  });
+});

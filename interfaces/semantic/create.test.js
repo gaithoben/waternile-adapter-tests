@@ -5,19 +5,19 @@ describe('Semantic Interface', function() {
   describe('.create()', function() {
     it('should create a new record', function(done) {
       Semantic.User.create({ first_name: 'Foo' }, function(err, record) {
-        if (err) { 
+        if (err) {
           return done(err);
         }
 
         assert.equal(record.first_name, 'Foo');
-        
+
         return done();
       });
     });
 
     it('should return a generated PK', function(done) {
       Semantic.User.create({ first_name: 'FooBar' }, function(err, user) {
-        if (err) { 
+        if (err) {
           return done(err);
         }
 
@@ -29,39 +29,50 @@ describe('Semantic Interface', function() {
     });
 
     it('should return generated timestamps', function(done) {
-      Semantic.User.create({ first_name: 'Foo', last_name: 'Bar' }, function(err, user) {
-        if (err) { 
+      Semantic.User.create({ first_name: 'Foo', last_name: 'Bar' }, function(
+        err,
+        user
+      ) {
+        if (err) {
           return done(err);
         }
 
         assert(user.createdAt);
         assert(user.updatedAt);
-        
+
         return done();
       });
     });
 
     it('should normalize undefined values to base values', function(done) {
-      Semantic.User.create({ first_name: 'Yezy', last_name: undefined }, function(err, user) {
-        if (err) { 
-          return done(err);
-        }
+      Semantic.User.create(
+        { first_name: 'Yezy', last_name: undefined },
+        function(err, user) {
+          if (err) {
+            return done(err);
+          }
 
-        assert.equal(user.last_name, '');
-        
-        return done();
-      });
+          assert.equal(user.last_name, '');
+
+          return done();
+        }
+      );
     });
 
     it('should support creating protected query language attributes', function(done) {
-      Semantic.User.create({ first_name: 'Yezy', sort: ['GOAT'] }, function(err, user) {
-        if (err) { 
+      Semantic.User.create({ first_name: 'Yezy', sort: ['GOAT'] }, function(
+        err,
+        user
+      ) {
+        if (err) {
           return done(err);
         }
 
+        console.log('USER CREATED: ', user, err);
+
         assert.equal(user.sort.length, 1);
         assert.equal(_.first(user.sort), 'GOAT');
-        
+
         return done();
       });
     });

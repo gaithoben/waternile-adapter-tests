@@ -2,10 +2,9 @@
  * Dependencies
  */
 
-var Waterline = require('waterline');
+var Waterline = require('waternile');
 
 module.exports = Waterline.Collection.extend({
-
   tableName: 'paymentTable',
   identity: 'payment',
   connection: 'associations2',
@@ -15,18 +14,17 @@ module.exports = Waterline.Collection.extend({
     type: 'string',
     apartment: {
       model: 'apartment',
-      columnName: 'apartment_id'
+      columnName: 'apartment_id',
     },
     a_customer: {
       model: 'Customer',
-      columnName: 'customer_id'
+      columnName: 'customer_id',
     },
 
     toJSON: function() {
       var obj = this.toObject();
       delete obj.type;
       return obj;
-    }
-  }
-
+    },
+  },
 });

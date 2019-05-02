@@ -12,14 +12,12 @@ var WaterlineUtils = require('waterline-utils');
  * option has no effect when updating existing records. The feature flag is `autoIncrement`.
  */
 describe('autoIncrement attribute feature', function() {
-
   describe('migrate: alter', function() {
-
     /////////////////////////////////////////////////////
     // TEST SETUP
     ////////////////////////////////////////////////////
 
-    var Waterline = require('waterline');
+    var Waterline = require('waternile');
     var migrate = 'drop';
     var waterline;
 
@@ -31,24 +29,31 @@ describe('autoIncrement attribute feature', function() {
       waterline.registerModel(getAutoIncFixture());
       var connections = { autoIncConn: _.clone(Connections.test) };
 
-      Adapter.teardown('autoIncConn', function adapterTeardown(){
-        waterline.initialize({ adapters: { wl_tests: Adapter }, datastores: connections, defaults: {} }, function(err, ontology) {
-          if(err) return done(err);
-          WaterlineUtils.autoMigrations(migrate, ontology, function(err) {
-            // Set migrate to `alter` for the next round.
-            migrate = 'alter';
-            if (err) {
-              return done(err);
-            }
-            AutoIncModel = ontology.collections.autoinc;
-            done();
-          });
-        });
+      Adapter.teardown('autoIncConn', function adapterTeardown() {
+        waterline.initialize(
+          {
+            adapters: { wl_tests: Adapter },
+            datastores: connections,
+            defaults: {},
+          },
+          function(err, ontology) {
+            if (err) return done(err);
+            WaterlineUtils.autoMigrations(migrate, ontology, function(err) {
+              // Set migrate to `alter` for the next round.
+              migrate = 'alter';
+              if (err) {
+                return done(err);
+              }
+              AutoIncModel = ontology.collections.autoinc;
+              done();
+            });
+          }
+        );
       });
     });
 
     after(function(done) {
-      if(!Adapter.hasOwnProperty('drop')) {
+      if (!Adapter.hasOwnProperty('drop')) {
         waterline.teardown(done);
       } else {
         WaterlineUtils.autoMigrations('drop', waterline, function(err1) {
@@ -59,7 +64,6 @@ describe('autoIncrement attribute feature', function() {
       }
     });
 
-
     /////////////////////////////////////////////////////
     // TEST METHODS
     ////////////////////////////////////////////////////
@@ -67,20 +71,26 @@ describe('autoIncrement attribute feature', function() {
     var testName = '.create() test autoInc unique values';
     var lastIds;
 
-
     it('should auto generate unique values', function(done) {
       var records = [];
-      for(var i=0; i<10; i++) {
+      for (var i = 0; i < 10; i++) {
         records.push({ name: 'ai_' + i, type: testName });
       }
 
       AutoIncModel.createEach(records, function(err) {
         if (err) return done(err);
 
-        AutoIncModel.find({where : { type: testName }, sort : 'name'}, function(err, records) {
+        AutoIncModel.find({ where: { type: testName }, sort: 'name' }, function(
+          err,
+          records
+        ) {
           if (err) return done(err);
           assert.ifError(err);
-          assert.equal(records.length, 10, 'Expecting 10 records, but got '+records.length);
+          assert.equal(
+            records.length,
+            10,
+            'Expecting 10 records, but got ' + records.length
+          );
 
           assert(records[0].id);
           assert.equal(records[0].name, 'ai_0');
@@ -89,27 +99,37 @@ describe('autoIncrement attribute feature', function() {
           var ids = _.pluck(records, 'id');
           lastIds = ids;
           assert.equal(ids.length, 10);
-          assert.equal(_.unique(ids).length, 10, 'Generated ids are not unique: '+ids.join(', '));
+          assert.equal(
+            _.unique(ids).length,
+            10,
+            'Generated ids are not unique: ' + ids.join(', ')
+          );
 
           done();
         });
-
       });
     });
 
     it('should auto generate unique values (second run)', function(done) {
       var records = [];
-      for(var i=0; i<10; i++) {
+      for (var i = 0; i < 10; i++) {
         records.push({ name: 'ai_' + i, type: testName });
       }
 
       AutoIncModel.createEach(records, function(err) {
         if (err) return done(err);
 
-        AutoIncModel.find({where : { type: testName }, sort : 'name'}, function(err, records) {
+        AutoIncModel.find({ where: { type: testName }, sort: 'name' }, function(
+          err,
+          records
+        ) {
           if (err) return done(err);
           assert.ifError(err);
-          assert.equal(records.length, 20, 'Expecting 20 records, but got '+records.length);
+          assert.equal(
+            records.length,
+            20,
+            'Expecting 20 records, but got ' + records.length
+          );
 
           assert(records[0].id);
           assert.equal(records[0].name, 'ai_0');
@@ -118,24 +138,24 @@ describe('autoIncrement attribute feature', function() {
           var ids = _.pluck(records, 'id');
           lastIds = ids;
           assert.equal(ids.length, 20);
-          assert.equal(_.unique(ids).length, 20, 'Generated ids are not unique: '+ids.join(', '));
+          assert.equal(
+            _.unique(ids).length,
+            20,
+            'Generated ids are not unique: ' + ids.join(', ')
+          );
 
           done();
         });
-
       });
-    });  
-
+    });
   });
 
-
   describe('migrate: safe', function() {
-
     /////////////////////////////////////////////////////
     // TEST SETUP
     ////////////////////////////////////////////////////
 
-    var Waterline = require('waterline');
+    var Waterline = require('waternile');
     var migrate = 'drop';
     var waterline;
 
@@ -148,24 +168,31 @@ describe('autoIncrement attribute feature', function() {
       var connections = { autoIncConn: _.clone(Connections.test) };
       connections.autoIncConn.dir = '.tmp/autoIncMigrateSafe';
 
-      Adapter.teardown('autoIncConn', function adapterTeardown(){
-        waterline.initialize({ adapters: { wl_tests: Adapter }, datastores: connections, defaults: {} }, function(err, ontology) {
-          if(err) return done(err);
-          WaterlineUtils.autoMigrations(migrate, ontology, function(err) {
-            if (err) {
-              return done(err);
-            }
-            // Set migrate to `safe` for the next round
-            migrate = 'safe';
-            AutoIncModel = ontology.collections.autoinc;
-            done();
-          });
-        });
+      Adapter.teardown('autoIncConn', function adapterTeardown() {
+        waterline.initialize(
+          {
+            adapters: { wl_tests: Adapter },
+            datastores: connections,
+            defaults: {},
+          },
+          function(err, ontology) {
+            if (err) return done(err);
+            WaterlineUtils.autoMigrations(migrate, ontology, function(err) {
+              if (err) {
+                return done(err);
+              }
+              // Set migrate to `safe` for the next round
+              migrate = 'safe';
+              AutoIncModel = ontology.collections.autoinc;
+              done();
+            });
+          }
+        );
       });
     });
 
     after(function(done) {
-      if(!Adapter.hasOwnProperty('drop')) {
+      if (!Adapter.hasOwnProperty('drop')) {
         waterline.teardown(done);
       } else {
         WaterlineUtils.autoMigrations('drop', waterline, function(err1) {
@@ -176,7 +203,6 @@ describe('autoIncrement attribute feature', function() {
       }
     });
 
-
     /////////////////////////////////////////////////////
     // TEST METHODS
     ////////////////////////////////////////////////////
@@ -184,20 +210,26 @@ describe('autoIncrement attribute feature', function() {
     var testName = '.create() test autoInc unique values';
     var lastIds;
 
-
     it('should auto generate unique values', function(done) {
       var records = [];
-      for(var i=0; i<10; i++) {
+      for (var i = 0; i < 10; i++) {
         records.push({ name: 'ai_' + i, type: testName });
       }
 
       AutoIncModel.createEach(records, function(err) {
         if (err) return done(err);
 
-        AutoIncModel.find({where : { type: testName }, sort : 'name'}, function(err, records) {
+        AutoIncModel.find({ where: { type: testName }, sort: 'name' }, function(
+          err,
+          records
+        ) {
           if (err) return done(err);
           assert.ifError(err);
-          assert.equal(records.length, 10, 'Expecting 10 records, but got '+records.length);
+          assert.equal(
+            records.length,
+            10,
+            'Expecting 10 records, but got ' + records.length
+          );
 
           assert(records[0].id);
           assert.equal(records[0].name, 'ai_0');
@@ -206,27 +238,37 @@ describe('autoIncrement attribute feature', function() {
           var ids = _.pluck(records, 'id');
           lastIds = ids;
           assert.equal(ids.length, 10);
-          assert.equal(_.unique(ids).length, 10, 'Generated ids are not unique: '+ids.join(', '));
+          assert.equal(
+            _.unique(ids).length,
+            10,
+            'Generated ids are not unique: ' + ids.join(', ')
+          );
 
           done();
         });
-
       });
     });
 
     it('should auto generate unique values (second run)', function(done) {
       var records = [];
-      for(var i=0; i<10; i++) {
+      for (var i = 0; i < 10; i++) {
         records.push({ name: 'ai_' + i, type: testName });
       }
 
       AutoIncModel.createEach(records, function(err) {
         if (err) return done(err);
 
-        AutoIncModel.find({where : { type: testName }, sort : 'name'}, function(err, records) {
+        AutoIncModel.find({ where: { type: testName }, sort: 'name' }, function(
+          err,
+          records
+        ) {
           if (err) return done(err);
           assert.ifError(err);
-          assert.equal(records.length, 20, 'Expecting 20 records, but got '+records.length);
+          assert.equal(
+            records.length,
+            20,
+            'Expecting 20 records, but got ' + records.length
+          );
 
           assert(records[0].id);
           assert.equal(records[0].name, 'ai_0');
@@ -235,14 +277,15 @@ describe('autoIncrement attribute feature', function() {
           var ids = _.pluck(records, 'id');
           lastIds = ids;
           assert.equal(ids.length, 20);
-          assert.equal(_.unique(ids).length, 20, 'Generated ids are not unique: '+ids.join(', '));
+          assert.equal(
+            _.unique(ids).length,
+            20,
+            'Generated ids are not unique: ' + ids.join(', ')
+          );
 
           done();
         });
-
       });
-    });  
-    
+    });
   });
-
 });

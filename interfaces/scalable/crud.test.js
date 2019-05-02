@@ -5,7 +5,7 @@
 // TODO: track any failures/errors
 
 
-var Waterline = require('waterline'),
+var Waterline = require('waternile'),
     Model = require('./support/crud.fixture'),
     assert = require('assert'),
     async = require('async');

@@ -1,4 +1,4 @@
-var Waterline = require('waterline');
+var Waterline = require('waternile');
 
 module.exports = Waterline.Collection.extend({
   identity: 'geomodel',
@@ -12,31 +12,29 @@ module.exports = Waterline.Collection.extend({
       type: 'geometry',
       geometry: {
         nativeSrid: 4326,
-        wktType: 'POINT'
-      }
+        wktType: 'POINT',
+      },
     },
     line: {
       type: 'geometry',
       geometry: {
         nativeSrid: 4326,
-        wktType: 'LINESTRING'
-      }
+        wktType: 'LINESTRING',
+      },
     },
     shape: {
       type: 'geometry',
       geometry: {
         nativeSrid: 4326,
-        wktType: 'POLYGON'
-      }
+        wktType: 'POLYGON',
+      },
     },
     genericGeometry: {
       type: 'geometry',
       geometry: {
         nativeSrid: 4326,
-        wktType: 'GEOMETRY'
-      }
-    }
-  }
+        wktType: 'GEOMETRY',
+      },
+    },
+  },
 });
-
-
