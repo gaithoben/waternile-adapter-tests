@@ -23,11 +23,7 @@ module.exports = {
           Adapter.identity === 'sails-orientjs'
             ? '_stringkey'
             : '_numberkey',
-        autoIncrement:
-          Adapter.identity === 'sails-mongo' ||
-          Adapter.identity === 'sails-orientjs'
-            ? false
-            : true,
+        autoIncrement: Adapter.identity === 'sails-mongo' ? false : true,
         unique: true, //<< FUTURE: Remove this (unnecessary since this is the PK attribute)
       },
     },
