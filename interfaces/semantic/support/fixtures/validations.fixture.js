@@ -11,21 +11,29 @@ module.exports = {
   attributes: {
     // Primary Key
     id: {
-      type: Adapter.identity === 'sails-mongo' ? 'string' : 'number',
+      type:
+        Adapter.identity === 'sails-mongo' ||
+        Adapter.identity === 'sails-orientjs'
+          ? 'string'
+          : 'number',
       columnName: '_id',
       autoMigrations: {
-        columnType: Adapter.identity === 'sails-mongo' ? '_stringkey' : '_numberkey',
-        autoIncrement: Adapter.identity === 'sails-mongo' ? false : true,
-        unique: true
-      }
+        columnType:
+          Adapter.identity === 'sails-mongo' ||
+          Adapter.identity === 'sails-orientjs'
+            ? '_stringkey'
+            : '_numberkey',
+        autoIncrement: Adapter.identity !== 'sails-mongo',
+        unique: true,
+      },
     },
 
     name: {
       type: 'string',
       required: true,
       autoMigrations: {
-        columnType: 'varchar'
-      }
+        columnType: 'varchar',
+      },
     },
 
     age: {
@@ -36,15 +44,15 @@ module.exports = {
         max: 20,
       },
       autoMigrations: {
-        columnType: 'integer'
-      }
+        columnType: 'integer',
+      },
     },
 
     description: {
       type: 'string',
       autoMigrations: {
-        columnType: 'varchar'
-      }
+        columnType: 'varchar',
+      },
     },
 
     // Timestamps
@@ -53,16 +61,16 @@ module.exports = {
       type: 'number',
       autoUpdatedAt: true,
       autoMigrations: {
-        columnType: 'bigint'
-      }
+        columnType: 'bigint',
+      },
     },
 
     createdAt: {
       type: 'number',
       autoCreatedAt: true,
       autoMigrations: {
-        columnType: 'bigint'
-      }
-    }
-  }
+        columnType: 'bigint',
+      },
+    },
+  },
 };
