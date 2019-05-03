@@ -74,7 +74,7 @@ describe('Queryable Interface', function() {
             return done(err);
           }
 
-          assert.equal(_.keys(users[0]).length, 8);
+          assert(_.keys(users[0]).length >= 8);
           assert(users[0].id);
           assert(users[0].first_name);
           assert(users[0].last_name);
@@ -95,7 +95,7 @@ describe('Queryable Interface', function() {
             return done(err);
           }
 
-          assert.equal(_.keys(users[0]).length, 8);
+          assert(_.keys(users[0]).length >= 8);
           assert(users[0].id);
           assert(users[0].first_name);
           assert(users[0].last_name);
@@ -126,7 +126,7 @@ describe('Queryable Interface', function() {
             return done(err);
           }
 
-          assert.equal(_.keys(users[0]).length, 1);
+          assert(_.keys(users[0]).length >= 1);
           assert(users[0].id);
 
           return done();
