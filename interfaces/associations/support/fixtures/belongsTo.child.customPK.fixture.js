@@ -7,38 +7,38 @@ module.exports = {
   fetchRecordsOnDestroy: false,
   fetchRecordsOnCreate: true,
   fetchRecordsOnCreateEach: true,
-  
+
   attributes: {
     invoice: {
       type: Adapter.identity === 'sails-mongo' ? 'string' : 'number',
-      columnName: '_id',
+      columnName: Adapter.identity === 'sails-arangojs' ? '_key' : '_id',
       required: true,
       autoMigrations: {
         columnType: 'integer',
-        unique: true
+        unique: true,
       },
     },
 
     amount: {
       type: 'number',
       autoMigrations: {
-        columnType: 'integer'
-      }
+        columnType: 'integer',
+      },
     },
 
     type: {
       type: 'string',
       autoMigrations: {
-        columnType: 'varchar'
-      }
+        columnType: 'varchar',
+      },
     },
 
     customer: {
       model: 'Customerbelongscustom',
       columnName: 'customer_belongs',
       autoMigrations: {
-        columnType: 'integer'
-      }
+        columnType: 'integer',
+      },
     },
 
     // Timestamps
@@ -47,16 +47,16 @@ module.exports = {
       type: 'number',
       autoUpdatedAt: true,
       autoMigrations: {
-        columnType: 'bigint'
-      }
+        columnType: 'bigint',
+      },
     },
 
     createdAt: {
       type: 'number',
       autoCreatedAt: true,
       autoMigrations: {
-        columnType: 'bigint'
-      }
-    }
-  }
+        columnType: 'bigint',
+      },
+    },
+  },
 };

@@ -12,7 +12,7 @@ module.exports = {
     // Primary Key
     id: {
       type: Adapter.identity === 'sails-mysql' ? 'number' : 'string',
-      columnName: '_id',
+      columnName: Adapter.identity === 'sails-arangojs' ? '_key' : '_id',
       autoMigrations: {
         columnType:
           Adapter.identity === 'sails-mysql' ? '_numberkey' : '_stringkey',

@@ -12,34 +12,35 @@ module.exports.user_resource = {
     // Primary Key
     id: {
       type: Adapter.identity === 'sails-mongo' ? 'string' : 'number',
-      columnName: '_id',
+      columnName: Adapter.identity === 'sails-arangojs' ? '_key' : '_id',
       autoMigrations: {
-        columnType: Adapter.identity === 'sails-mongo' ? '_stringkey' : '_numberkey',
+        columnType:
+          Adapter.identity === 'sails-mongo' ? '_stringkey' : '_numberkey',
         autoIncrement: Adapter.identity === 'sails-mongo' ? false : true,
-        unique: true
-      }
+        unique: true,
+      },
     },
 
     name: {
       type: 'string',
       autoMigrations: {
-        columnType: 'varchar'
-      }
+        columnType: 'varchar',
+      },
     },
 
     quantity: {
       type: 'number',
       autoMigrations: {
-        columnType: 'integer'
-      }
+        columnType: 'integer',
+      },
     },
 
     profile: {
       model: 'profile',
       columnName: 'profile_id',
       autoMigrations: {
-        columnType: 'integer'
-      }
+        columnType: 'integer',
+      },
     },
 
     // Timestamps
@@ -48,18 +49,18 @@ module.exports.user_resource = {
       type: 'number',
       autoUpdatedAt: true,
       autoMigrations: {
-        columnType: 'bigint'
-      }
+        columnType: 'bigint',
+      },
     },
 
     createdAt: {
       type: 'number',
       autoCreatedAt: true,
       autoMigrations: {
-        columnType: 'bigint'
-      }
-    }
-  }
+        columnType: 'bigint',
+      },
+    },
+  },
 };
 
 module.exports.profile = {
@@ -76,34 +77,35 @@ module.exports.profile = {
     // Primary Key
     id: {
       type: Adapter.identity === 'sails-mongo' ? 'string' : 'number',
-      columnName: '_id',
+      columnName: Adapter.identity === 'sails-arangojs' ? '_key' : '_id',
       autoMigrations: {
-        columnType: Adapter.identity === 'sails-mongo' ? '_stringkey' : '_numberkey',
+        columnType:
+          Adapter.identity === 'sails-mongo' ? '_stringkey' : '_numberkey',
         autoIncrement: Adapter.identity === 'sails-mongo' ? false : true,
-        unique: true
-      }
+        unique: true,
+      },
     },
 
     name: {
       type: 'string',
       autoMigrations: {
-        columnType: 'varchar'
-      }
+        columnType: 'varchar',
+      },
     },
 
     level: {
       type: 'number',
       autoMigrations: {
-        columnType: 'integer'
-      }
+        columnType: 'integer',
+      },
     },
 
     user: {
       model: 'user_resource',
       columnName: 'user_resource_id',
       autoMigrations: {
-        columnType: 'integer'
-      }
+        columnType: 'integer',
+      },
     },
 
     // Timestamps
@@ -112,16 +114,16 @@ module.exports.profile = {
       type: 'number',
       autoUpdatedAt: true,
       autoMigrations: {
-        columnType: 'bigint'
-      }
+        columnType: 'bigint',
+      },
     },
 
     createdAt: {
       type: 'number',
       autoCreatedAt: true,
       autoMigrations: {
-        columnType: 'bigint'
-      }
-    }
-  }
+        columnType: 'bigint',
+      },
+    },
+  },
 };

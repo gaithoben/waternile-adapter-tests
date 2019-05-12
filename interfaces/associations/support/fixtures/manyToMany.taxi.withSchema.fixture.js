@@ -2,7 +2,7 @@ module.exports = {
   tableName: 'taxiWithSchemaTable',
 
   meta: {
-    schemaName: 'bar'
+    schemaName: 'bar',
   },
 
   identity: 'taxiwithschema',
@@ -17,24 +17,25 @@ module.exports = {
     // Primary Key
     id: {
       type: Adapter.identity === 'sails-mongo' ? 'string' : 'number',
-      columnName: '_id',
+      columnName: Adapter.identity === 'sails-arangojs' ? '_key' : '_id',
       autoMigrations: {
-        columnType: Adapter.identity === 'sails-mongo' ? '_stringkey' : '_numberkey',
+        columnType:
+          Adapter.identity === 'sails-mongo' ? '_stringkey' : '_numberkey',
         autoIncrement: Adapter.identity === 'sails-mongo' ? false : true,
-        unique: true
-      }
+        unique: true,
+      },
     },
 
     medallion: {
       type: 'number',
       autoMigrations: {
-        columnType: 'integer'
-      }
+        columnType: 'integer',
+      },
     },
 
     drivers: {
       collection: 'driverwithschema',
-      via: 'taxis'
+      via: 'taxis',
     },
 
     // Timestamps
@@ -43,16 +44,16 @@ module.exports = {
       type: 'number',
       autoUpdatedAt: true,
       autoMigrations: {
-        columnType: 'bigint'
-      }
+        columnType: 'bigint',
+      },
     },
 
     createdAt: {
       type: 'number',
       autoCreatedAt: true,
       autoMigrations: {
-        columnType: 'bigint'
-      }
-    }
-  }
+        columnType: 'bigint',
+      },
+    },
+  },
 };

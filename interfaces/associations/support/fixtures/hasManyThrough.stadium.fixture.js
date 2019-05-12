@@ -12,26 +12,27 @@ module.exports = {
     // Primary Key
     id: {
       type: Adapter.identity === 'sails-mongo' ? 'string' : 'number',
-      columnName: '_id',
+      columnName: Adapter.identity === 'sails-arangojs' ? '_key' : '_id',
       autoMigrations: {
-        columnType: Adapter.identity === 'sails-mongo' ? '_stringkey' : '_numberkey',
+        columnType:
+          Adapter.identity === 'sails-mongo' ? '_stringkey' : '_numberkey',
         autoIncrement: Adapter.identity === 'sails-mongo' ? false : true,
-        unique: true
-      }
+        unique: true,
+      },
     },
 
     name: {
       columnName: 'nom',
       type: 'string',
       autoMigrations: {
-        columnType: 'varchar'
-      }
+        columnType: 'varchar',
+      },
     },
 
     teams: {
       collection: 'Team',
       through: 'venue',
-      via: 'stadium'
+      via: 'stadium',
     },
 
     // Timestamps
@@ -40,16 +41,16 @@ module.exports = {
       type: 'number',
       autoUpdatedAt: true,
       autoMigrations: {
-        columnType: 'bigint'
-      }
+        columnType: 'bigint',
+      },
     },
 
     createdAt: {
       type: 'number',
       autoCreatedAt: true,
       autoMigrations: {
-        columnType: 'bigint'
-      }
-    }
-  }
+        columnType: 'bigint',
+      },
+    },
+  },
 };

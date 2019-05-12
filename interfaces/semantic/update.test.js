@@ -143,10 +143,9 @@ describe('Semantic Interface', function() {
       } else {
         it("should work when changing a user's primary key value", function(done) {
           var newPkValue =
-            Adapter.identity === 'sails-mongo' ||
-            Adapter.identity === 'sails-orientjs'
-              ? '58c955bc3159b4b091a74046'
-              : 99999;
+            Adapter.identity === 'sails-mysql'
+              ? 99999
+              : '58c955bc3159b4b091a74046';
           Semantic.User.update(
             id,
             {

@@ -14,9 +14,8 @@ var fixtures = {
   CreateFixture: require('./fixtures/create.fixture'),
   CustomFixture: require('./fixtures/custom.fixture'),
   DropFixture: require('./fixtures/drop.fixture'),
-  SafeFixture: require('./fixtures/safe.fixture')
+  SafeFixture: require('./fixtures/safe.fixture'),
 };
-
 
 var waterline;
 var ORM;
@@ -31,16 +30,16 @@ var defaults = {
   attributes: {
     id: {
       type: Adapter.identity === 'sails-mongo' ? 'string' : 'number',
-      columnName: '_id',
+      columnName: Adapter.identity === 'sails-arangojs' ? '_key' : '_id',
       autoMigrations: {
-        columnType: Adapter.identity === 'sails-mongo' ? '_stringkey' : '_numberkey',
+        columnType:
+          Adapter.identity === 'sails-mongo' ? '_stringkey' : '_numberkey',
         autoIncrement: Adapter.identity === 'sails-mongo' ? false : true,
-        unique: true
-      }
-    }
-  }
+        unique: true,
+      },
+    },
+  },
 };
-
 
 //  ╔═╗╦  ╔═╗╔╗ ╔═╗╦    ┌┐ ┌─┐┌─┐┌─┐┬─┐┌─┐
 //  ║ ╦║  ║ ║╠╩╗╠═╣║    ├┴┐├┤ ├┤ │ │├┬┘├┤
@@ -57,7 +56,7 @@ before(function(done) {
   });
 
   var datastores = {
-    migratable: _.clone(Connections.test)
+    migratable: _.clone(Connections.test),
   };
 
   // Store access to the instantiated Waterline instance so tests can
@@ -68,10 +67,10 @@ before(function(done) {
   // Waterline.
   var wlOptions = {
     adapters: {
-      wl_tests: Adapter
+      wl_tests: Adapter,
     },
     datastores: datastores,
-    defaults: defaults
+    defaults: defaults,
   };
 
   global.Migratable.WaterlineOptions = wlOptions;
@@ -100,7 +99,6 @@ before(function(done) {
     });
   });
 });
-
 
 //  ╔═╗╦  ╔═╗╔╗ ╔═╗╦    ┌─┐┌─┐┌┬┐┌─┐┬─┐
 //  ║ ╦║  ║ ║╠╩╗╠═╣║    ├─┤├┤  │ ├┤ ├┬┘
