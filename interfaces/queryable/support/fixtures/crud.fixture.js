@@ -11,19 +11,12 @@ module.exports = {
   attributes: {
     // Primary Key
     id: {
-      type:
-        Adapter.identity === 'sails-mongo' ||
-        Adapter.identity === 'sails-orientjs'
-          ? 'string'
-          : 'number',
+      type: Adapter.identity === 'sails-mysql' ? 'number' : 'string',
       columnName: '_id',
       autoMigrations: {
         columnType:
-          Adapter.identity === 'sails-mongo' ||
-          Adapter.identity === 'sails-orientjs'
-            ? '_stringkey'
-            : '_numberkey',
-        autoIncrement: Adapter.identity === 'sails-mongo' ? false : true,
+          Adapter.identity === 'sails-mysql' ? '_numberkey' : '_stringkey',
+        autoIncrement: Adapter.identity === 'sails-mysql'
         unique: true,
       },
     },

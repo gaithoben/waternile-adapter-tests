@@ -11,27 +11,28 @@ module.exports = {
   attributes: {
     // Primary Key
     id: {
-      type: Adapter.identity === 'sails-mongo' ? 'string' : 'number',
+      type: Adapter.identity == 'sails-mysql' ? 'number' : 'string',
       columnName: '_id',
       autoMigrations: {
-        columnType: Adapter.identity === 'sails-mongo' ? '_stringkey' : '_numberkey',
-        autoIncrement: Adapter.identity === 'sails-mongo' ? false : true,
+        columnType:
+          Adapter.identity === 'sails-mysql' ? '_numberkey' : '_stringkey',
+        autoIncrement: Adapter.identity === 'sails-mysql' ? true : false,
         unique: true,
-      }
+      },
     },
 
     name: {
       type: 'string',
       autoMigrations: {
-        columnType: 'varchar'
-      }
+        columnType: 'varchar',
+      },
     },
 
     age: {
       type: 'number',
       autoMigrations: {
-        columnType: 'integer'
-      }
+        columnType: 'integer',
+      },
     },
 
     // Timestamps
@@ -40,16 +41,16 @@ module.exports = {
       type: 'number',
       autoUpdatedAt: true,
       autoMigrations: {
-        columnType: 'bigint'
-      }
+        columnType: 'bigint',
+      },
     },
 
     createdAt: {
       type: 'number',
       autoCreatedAt: true,
       autoMigrations: {
-        columnType: 'bigint'
-      }
-    }
-  }
+        columnType: 'bigint',
+      },
+    },
+  },
 };
