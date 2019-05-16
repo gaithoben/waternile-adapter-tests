@@ -1,7 +1,7 @@
 {
   "name": "waternile-adapter-tests",
   "description": "Integration tests for sails-orientjs/waternile adapters",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "author": "Gaitho Bernard <gaithoben@gmail.com>",
   "dependencies": {
     "@sailshq/lodash": "3.10.2",
