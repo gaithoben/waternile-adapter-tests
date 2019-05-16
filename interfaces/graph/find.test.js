@@ -1,6 +1,9 @@
 const assert = require('assert');
 const _ = require('@sailshq/lodash');
-const airport_data = require('./support/fixtures/airports_data');
+const data = require('./support/fixtures/airports_data');
+
+
+const airport_data = data.map(d=>({...d, id:d._key}))
 
 describe('Graph Interface', () => {
   describe('.find()', () => {
@@ -8,7 +11,7 @@ describe('Graph Interface', () => {
       // Insert 10 Users
 
       Graph.Airportforgraphinterface.createEach(
-        airport_data,
+        airport_data.map=>,
         (err, airports) => {
           if (err) {
             return done(err);
