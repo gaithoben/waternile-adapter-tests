@@ -68,8 +68,6 @@ describe('Semantic Interface', function() {
           return done(err);
         }
 
-        console.log('USER CREATED: ', user, err);
-
         assert.equal(user.sort.length, 1);
         assert.equal(_.first(user.sort), 'GOAT');
 

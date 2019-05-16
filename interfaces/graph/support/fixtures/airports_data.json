@@ -1,0 +1,72 @@
+[
+  {
+    "_key": "00M",
+    "name": "Thigpen ",
+    "city": "Bay Springs",
+    "state": "MS",
+    "country": "USA",
+    "lat": 31.95376472,
+    "long": -89.23450472,
+    "vip": false
+  },
+  {
+    "_key": "00R",
+    "name": "Livingston Municipal",
+    "city": "Livingston",
+    "state": "TX",
+    "country": "USA",
+    "lat": 30.68586111,
+    "long": -95.01792778,
+    "vip": false
+  },
+  {
+    "_key": "00V",
+    "name": "Meadow Lake",
+    "city": "Colorado Springs",
+    "state": "CO",
+    "country": "USA",
+    "lat": 38.94574889,
+    "long": -104.5698933,
+    "vip": false
+  },
+  {
+    "_key": "01G",
+    "name": "Perry-Warsaw",
+    "city": "Perry",
+    "state": "NY",
+    "country": "USA",
+    "lat": 42.74134667,
+    "long": -78.05208056,
+    "vip": false
+  },
+  {
+    "_key": "01J",
+    "name": "Hilliard Airpark",
+    "city": "Hilliard",
+    "state": "FL",
+    "country": "USA",
+    "lat": 30.6880125,
+    "long": -81.90594389,
+    "vip": false
+  },
+  {
+    "_key": "01M",
+    "name": "Tishomingo County",
+    "city": "Belmont",
+    "state": "MS",
+    "country": "USA",
+    "lat": 34.49166667,
+    "long": -88.20111111,
+    "vip": false
+  },
+  {
+    "_key": "02A",
+    "name": "Gragg-Wade ",
+    "city": "Clanton",
+    "state": "AL",
+    "country": "USA",
+    "lat": 32.85048667,
+    "long": -86.61145333,
+    "vip": false
+  }
+]
