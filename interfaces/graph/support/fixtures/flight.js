@@ -10,8 +10,8 @@ module.exports = {
   fetchRecordsOnCreateEach: true,
   classType: 'Edge',
   edgeDefinition: {
-    from: 'graphairport',
-    to: 'graphairport',
+    from: ['graphairport'],
+    to: ['graphairport'],
   },
 
   attributes: {
