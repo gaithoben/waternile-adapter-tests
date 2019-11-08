@@ -2,27 +2,26 @@ const assert = require('assert');
 const _ = require('@sailshq/lodash');
 const data = require('./support/fixtures/airports_data');
 
-
-const airport_data = data.map(d=>({...d, id:d._key}))
+const airport_data = data.map(d => ({ ...d, id: d._key }));
 
 describe('Graph Interface', () => {
   describe('.find()', () => {
-    before((done) => {
+    before(done => {
       // Insert 10 Users
 
       Graph.Airportforgraphinterface.createEach(
-        airport_data.map=>,
+        airport_data,
         (err, airports) => {
           if (err) {
             return done(err);
           }
 
           return done();
-        },
+        }
       );
     });
 
-    it('should be able to find a Vertex', (done) => {
+    it('should be able to find a Vertex', done => {
       Graph.Airportforgraphinterface.findOne({ id: '00M' }, (err, airport) => {
         if (err) {
           return done(err);
@@ -33,7 +32,7 @@ describe('Graph Interface', () => {
         return done();
       });
     });
-    it('should create an Edge connecting two airports', (done) => {
+    it('should create an Edge connecting two airports', done => {
       const edgeproperties = {
         Year: 2008,
         Month: 1,
@@ -67,7 +66,7 @@ describe('Graph Interface', () => {
           assert.equal(edge._from, `${from_id}`);
           assert.equal(edge._to, `${to_id}`);
           return done();
-        },
+        }
       );
     });
   });

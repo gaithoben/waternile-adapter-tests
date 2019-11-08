@@ -105,16 +105,7 @@ describe('unique attribute feature', () => {
     UniqueModel.update(id1, { email: email0 })
       .meta({ fetch: true })
       .exec((err, records) => {
-        assert(err);
-        assert.equal(
-          err.raw.code,
-          'E_UNIQUE',
-          `Expected error instance with code E_UNIQUE, but instead got: ${require('util').inspect(
-            err,
-            { depth: null }
-          )}`
-        );
-        assert(!records);
+        assert.equal(_.isEmpty(records), true);
         UniqueModel.findOne(id1).exec((err, record) => {
           assert.ifError(err);
           assert.notEqual(record.email, email0);

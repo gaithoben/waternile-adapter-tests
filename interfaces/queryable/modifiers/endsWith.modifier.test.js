@@ -9,23 +9,29 @@ describe('Queryable Interface', function() {
           var part = 'xxj8xa4hPFDH_long';
           var testName = 'endsWith query test xxj8xa4hPFDH_long';
 
-          Queryable.Userforqueryableinterface.create({ first_name: testName }, function(err) {
-            if (err) {
-              return done(err);
-            }
-
-            Queryable.Userforqueryableinterface.find({ first_name: { endsWith: part }}, function(err, users) {
+          Queryable.Userforqueryableinterface.create(
+            { first_name: testName },
+            function(err) {
               if (err) {
                 return done(err);
               }
 
-              assert(_.isArray(users));
-              assert.equal(users.length, 1);
-              assert.equal(users[0].first_name, testName);
-              
-              return done();
-            });
-          });
+              Queryable.Userforqueryableinterface.find(
+                { first_name: { $like: `%${part}` } },
+                function(err, users) {
+                  if (err) {
+                    return done(err);
+                  }
+
+                  assert(_.isArray(users));
+                  assert.equal(users.length, 1);
+                  assert.equal(users[0].first_name, testName);
+
+                  return done();
+                }
+              );
+            }
+          );
         });
       });
     });

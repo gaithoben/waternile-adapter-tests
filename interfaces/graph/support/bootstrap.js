@@ -10,8 +10,8 @@ const waterlineUtils = require('waterline-utils');
 
 // Require Fixtures
 const fixtures = {
-  FlightsFixture: require('waternile-adapter-tests/interfaces/graph/support/fixtures/flight'),
-  AirtportsFixture: require('waternile-adapter-tests/interfaces/graph/support/fixtures/airport'),
+  FlightsFixture: require('./fixtures/flight'),
+  AirtportsFixture: require('./fixtures/airport'),
 };
 
 let waterline;
@@ -42,7 +42,7 @@ const defaults = {
 //  ╔═╗╦  ╔═╗╔╗ ╔═╗╦    ┌┐ ┌─┐┌─┐┌─┐┬─┐┌─┐
 //  ║ ╦║  ║ ║╠╩╗╠═╣║    ├┴┐├┤ ├┤ │ │├┬┘├┤
 //  ╚═╝╩═╝╚═╝╚═╝╩ ╩╩═╝  └─┘└─┘└  └─┘┴└─└─┘
-before((done) => {
+before(done => {
   waterline = new Waterline();
 
   _.each(fixtures, (val, key) => {
@@ -69,27 +69,28 @@ before((done) => {
       ORM = orm;
 
       // Run migrations
-      waterlineUtils.autoMigrations('alter', orm, (err) => {
+      waterlineUtils.autoMigrations('alter', orm, err => {
         if (err) {
           return done(err);
         }
 
         // Globalize collections for normalization
         _.each(ORM.collections, (collection, identity) => {
-          const globalName = identity.charAt(0).toUpperCase() + identity.slice(1);
+          const globalName =
+            identity.charAt(0).toUpperCase() + identity.slice(1);
           global.Graph[globalName] = collection;
         });
 
         return done();
       });
-    },
+    }
   );
 });
 
 //  ╔═╗╦  ╔═╗╔╗ ╔═╗╦    ┌─┐┌─┐┌┬┐┌─┐┬─┐
 //  ║ ╦║  ║ ║╠╩╗╠═╣║    ├─┤├┤  │ ├┤ ├┬┘
 //  ╚═╝╩═╝╚═╝╚═╝╩ ╩╩═╝  ┴ ┴└   ┴ └─┘┴└─
-after((done) => {
+after(done => {
   function dropCollection(item, next) {
     if (!_.has(Adapter, 'drop')) {
       return next();
@@ -102,7 +103,7 @@ after((done) => {
     Adapter.drop(datastoreName, tableName, [], next);
   }
 
-  async.each(_.keys(ORM.collections), dropCollection, (err) => {
+  async.each(_.keys(ORM.collections), dropCollection, err => {
     if (err) {
       return done(err);
     }

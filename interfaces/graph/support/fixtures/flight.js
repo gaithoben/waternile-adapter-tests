@@ -9,10 +9,10 @@ module.exports = {
   fetchRecordsOnCreateEdge: true,
   fetchRecordsOnCreateEach: true,
   classType: 'Edge',
-  edgeDefinition:{
-    from:'graphairport',
-    to:'graphairport'
-  }
+  edgeDefinition: {
+    from: 'graphairport',
+    to: 'graphairport',
+  },
 
   attributes: {
     // Primary Key

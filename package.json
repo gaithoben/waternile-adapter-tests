@@ -9,7 +9,7 @@
     "bluebird": "3.2.1",
     "mocha": "3.0.2",
     "waterline-utils": "^1.3.2",
-    "waternile": "github:gaithoben/waternile"
+    "waternile": "github:cloudhubke/waternile"
   },
   "keywords": [
     "orm",
@@ -21,8 +21,8 @@
     "postgresql",
     "mongo"
   ],
-  "repository": "git://github.com/gaithoben/waternile-adapter-tests.git",
-  "homepage": "http://github.com/gaithoben/waternile-adapter-tests",
+  "repository": "git://github.com/cloudhubke/waternile-adapter-tests.git",
+  "homepage": "http://github.com/cloudhubke/waternile-adapter-tests",
   "main": "./lib/index.js",
   "scripts": {
     "test": "mocha test",
@@ -34,6 +34,6 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gaithoben/waternile-adapter-tests/issues/new"
+    "url": "https://github.com/cloudhubke/waternile-adapter-tests/issues/new"
   }
 }

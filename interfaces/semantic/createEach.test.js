@@ -6,7 +6,7 @@ describe('Semantic Interface', function() {
     it('should create a set of users', function(done) {
       var usersArray = [
         { first_name: 'createEach_1', type: 'createEach' },
-        { first_name: 'createEach_2', type: 'createEach' }
+        { first_name: 'createEach_2', type: 'createEach' },
       ];
 
       Semantic.User.createEach(usersArray, function(err, users) {
@@ -24,7 +24,6 @@ describe('Semantic Interface', function() {
     it('should insert 2 records verififed by find', function(done) {
       Semantic.User.find({ type: 'createEach' }, function(err, users) {
         if (err) {
-          // console.error(err.raw.stack);
           return done(err);
         }
 
@@ -37,7 +36,7 @@ describe('Semantic Interface', function() {
     it('should return generated timestamps', function(done) {
       var usersArray = [
         { first_name: 'createEach_3', type: 'createEach' },
-        { first_name: 'createEach_4', type: 'createEach' }
+        { first_name: 'createEach_4', type: 'createEach' },
       ];
 
       Semantic.User.createEach(usersArray, function(err, users) {
@@ -56,7 +55,7 @@ describe('Semantic Interface', function() {
     it('should support creating protected query language attributes', function(done) {
       var usersArray = [
         { first_name: 'createEach_5', sort: ['foo'] },
-        { first_name: 'createEach_6', sort: ['bar'] }
+        { first_name: 'createEach_6', sort: ['bar'] },
       ];
 
       Semantic.User.createEach(usersArray, function(err, users) {

@@ -5,7 +5,10 @@ describe('Semantic Interface', function() {
   describe('JSON Type', function() {
     describe('with valid data', function() {
       it('should store proper object value', function(done) {
-        Semantic.User.create({ obj: {foo: 'bar'} }, function(err, createdRecord) {
+        Semantic.User.create({ obj: { foo: 'bar' } }, function(
+          err,
+          createdRecord
+        ) {
           if (err) {
             return done(err);
           }
@@ -13,7 +16,10 @@ describe('Semantic Interface', function() {
           assert.strictEqual(createdRecord.obj, Object(createdRecord.obj));
           assert.equal(createdRecord.obj.foo, 'bar');
 
-          Semantic.User.findOne({id: createdRecord.id}, function (err, record) {
+          Semantic.User.findOne({ id: createdRecord.id }, function(
+            err,
+            record
+          ) {
             if (err) {
               return done(err);
             }
@@ -27,7 +33,10 @@ describe('Semantic Interface', function() {
       });
 
       it('should store proper array value', function(done) {
-        Semantic.User.create({ obj: ['foo','bar'] }, function(err, createdRecord) {
+        Semantic.User.create({ obj: ['foo', 'bar'] }, function(
+          err,
+          createdRecord
+        ) {
           if (err) {
             return done(err);
           }
@@ -35,7 +44,13 @@ describe('Semantic Interface', function() {
           assert(_.isArray(createdRecord.obj));
           assert.equal(createdRecord.obj.length, 2);
 
-          Semantic.User.findOne({id: createdRecord.id}, function (err, record) {
+          Semantic.User.findOne({ id: createdRecord.id }, function(
+            err,
+            record
+          ) {
+            console.log('====================================');
+            console.log('RECR', err, record);
+            console.log('====================================');
             if (err) {
               return done(err);
             }
@@ -56,7 +71,10 @@ describe('Semantic Interface', function() {
 
           assert.equal(createdRecord.obj, 'holla!');
 
-          Semantic.User.findOne({id: createdRecord.id}, function (err, record) {
+          Semantic.User.findOne({ id: createdRecord.id }, function(
+            err,
+            record
+          ) {
             if (err) {
               return done(err);
             }
@@ -76,7 +94,13 @@ describe('Semantic Interface', function() {
 
           assert.equal(createdRecord.obj, 123);
 
-          Semantic.User.findOne({id: createdRecord.id}, function (err, record) {
+          Semantic.User.findOne({ id: createdRecord.id }, function(
+            err,
+            record
+          ) {
+            console.log('====================================');
+            console.log('ERRR', err, record);
+            console.log('====================================');
             if (err) {
               return done(err);
             }
@@ -96,7 +120,10 @@ describe('Semantic Interface', function() {
 
           assert.equal(createdRecord.obj, true);
 
-          Semantic.User.findOne({id: createdRecord.id}, function (err, record) {
+          Semantic.User.findOne({ id: createdRecord.id }, function(
+            err,
+            record
+          ) {
             if (err) {
               return done(err);
             }
@@ -108,7 +135,6 @@ describe('Semantic Interface', function() {
         });
       });
 
-
       it('should store proper null value', function(done) {
         Semantic.User.create({ obj: null }, function(err, createdRecord) {
           if (err) {
@@ -117,7 +143,10 @@ describe('Semantic Interface', function() {
 
           assert.equal(createdRecord.obj, null);
 
-          Semantic.User.findOne({id: createdRecord.id}, function (err, record) {
+          Semantic.User.findOne({ id: createdRecord.id }, function(
+            err,
+            record
+          ) {
             if (err) {
               return done(err);
             }
@@ -128,8 +157,6 @@ describe('Semantic Interface', function() {
           });
         });
       });
-
     });
   });
-
 });
