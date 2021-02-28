@@ -10,6 +10,11 @@ module.exports = Waterline.Collection.extend({
   connection: 'uniqueConn',
   primaryKey: 'id',
   archiveModelIdentity: false,
+  indexes: [
+    {
+      fields: ['email'],
+    },
+  ],
 
   attributes: {
     // Primary Key

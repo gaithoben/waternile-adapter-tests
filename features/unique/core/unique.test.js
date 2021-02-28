@@ -18,7 +18,7 @@ describe('unique attribute feature', () => {
   let id1;
   let email0;
 
-  before(done => {
+  before((done) => {
     waterline = new Waterline();
     waterline.registerModel(UniqueFixture);
 
@@ -34,7 +34,7 @@ describe('unique attribute feature', () => {
         if (err) return done(err);
 
         // Migrations Helper
-        WaterlineUtils.autoMigrations(defaults.migrate, ontology, err => {
+        WaterlineUtils.autoMigrations(defaults.migrate, ontology, (err) => {
           if (err) {
             return done(err);
           }
@@ -67,12 +67,12 @@ describe('unique attribute feature', () => {
     );
   });
 
-  after(done => {
+  after((done) => {
     if (!Adapter.hasOwnProperty('drop')) {
       waterline.teardown(done);
     } else {
-      WaterlineUtils.autoMigrations('drop', waterline, err1 => {
-        waterline.teardown(err2 => done(err1 || err2));
+      WaterlineUtils.autoMigrations('drop', waterline, (err1) => {
+        waterline.teardown((err2) => done(err1 || err2));
       });
     }
   });
@@ -81,9 +81,10 @@ describe('unique attribute feature', () => {
   // TEST METHODS
   // //////////////////////////////////////////////////
 
-  it('should error when creating with a duplicate value', done => {
+  it('should error when creating with a duplicate value', (done) => {
     UniqueModel.create({ email: email0, type: 'unique' }, (err, records) => {
       assert(err);
+
       assert.equal(
         err.raw.code,
         'E_UNIQUE',
@@ -101,7 +102,7 @@ describe('unique attribute feature', () => {
     });
   });
 
-  it('should error when updating with a duplicate value', done => {
+  it('should error when updating with a duplicate value', (done) => {
     UniqueModel.update(id1, { email: email0 })
       .meta({ fetch: true })
       .exec((err, records) => {
@@ -114,7 +115,7 @@ describe('unique attribute feature', () => {
       });
   });
 
-  it('should work (do nothing) when updating the field of an existing record to the same value', done => {
+  it('should work (do nothing) when updating the field of an existing record to the same value', (done) => {
     UniqueModel.update(id0, {
       name: 'testUnique0',
       email: email0,
@@ -136,7 +137,7 @@ describe('unique attribute feature', () => {
       });
   });
 
-  it('should work when updating a unique field to the same value based on search parameters', done => {
+  it('should work when updating a unique field to the same value based on search parameters', (done) => {
     UniqueModel.update({ email: email0 }, { email: email0 })
       .meta({ fetch: true })
       .exec((err, records) => {
