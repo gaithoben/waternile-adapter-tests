@@ -151,4 +151,16 @@ describe('unique attribute feature', () => {
         done();
       });
   });
+
+  it('should include the unique fields in keyProps of returned objects', (done) => {
+    UniqueModel.findOne({ email: email0 }).exec((err, doc) => {
+      assert(!err, 'Expected no error');
+
+      assert(doc instanceof global['UniqueTableObject']);
+      assert(_.has(doc.keyProps, 'email'));
+      assert(doc.keyProps.email === email0);
+
+      done();
+    });
+  });
 });

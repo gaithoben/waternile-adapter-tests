@@ -7,6 +7,7 @@ var Waterline = require('waternile');
 module.exports = Waterline.Collection.extend({
   identity: 'unique',
   tableName: 'uniqueTable',
+  globalId: 'UniqueTable',
   connection: 'uniqueConn',
   primaryKey: 'id',
   archiveModelIdentity: false,

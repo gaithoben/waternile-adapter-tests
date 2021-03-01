@@ -1,4 +1,5 @@
 module.exports = {
+  globalId: 'Userforqueryableinterface',
   identity: 'userforqueryableinterface',
   tableName: 'userTable2',
   datastore: 'queryable',
