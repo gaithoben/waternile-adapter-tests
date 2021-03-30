@@ -1,11 +1,11 @@
-const assert = require('assert');
-const _ = require('@sailshq/lodash');
-const data = require('./support/fixtures/airports_data');
+const assert = require("assert");
+const _ = require("@sailshq/lodash");
+const data = require("./support/fixtures/airports_data");
 
 const airport_data = data.map((d) => ({ ...d, id: d._key }));
 
-describe('Graph Interface', () => {
-  describe('.find()', () => {
+describe("Graph Interface", () => {
+  describe(".find()", () => {
     before((done) => {
       // Insert 10 Users
 
@@ -21,18 +21,18 @@ describe('Graph Interface', () => {
       );
     });
 
-    it('should be able to find a Vertex', (done) => {
-      Graph.Airportforgraphinterface.findOne({ id: '00m' }, (err, airport) => {
+    it("should be able to find a Vertex", (done) => {
+      Graph.Airportforgraphinterface.findOne({ id: "00m" }, (err, airport) => {
         if (err) {
           return done(err);
         }
         assert(airport);
-        assert.equal(airport.id, '00m');
+        assert.equal(airport.id, "00m");
 
         return done();
       });
     });
-    it('should create an Edge connecting two airports', (done) => {
+    it("should create an Edge connecting two airports", (done) => {
       const edgeproperties = {
         Year: 2008,
         Month: 1,
@@ -40,16 +40,16 @@ describe('Graph Interface', () => {
         DayOfWeek: 2,
         DepTime: 644,
         ArrTime: 866,
-        DepTimeUTC: '2008-01-01T11:04:00.000Z',
-        ArrTimeUTC: '2008-01-01T13:06:00.000Z',
-        UniqueCarrier: '9E',
+        DepTimeUTC: "2008-01-01T11:04:00.000Z",
+        ArrTimeUTC: "2008-01-01T13:06:00.000Z",
+        UniqueCarrier: "9E",
         FlightNum: 2938,
-        TailNum: '87979E',
+        TailNum: "87979E",
         Distance: 444,
       };
 
-      const from_id = 'graphairport/00m';
-      const to_id = 'graphairport/00r';
+      const from_id = "graphairport/00m";
+      const to_id = "graphairport/00r";
 
       Graph.Flightforgraphinterface.createEdge(
         edgeproperties,
